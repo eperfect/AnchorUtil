@@ -11,12 +11,12 @@
  * AnchorUtil.setAnchor(target, anchor); //同时设置对象的anchorX和anchorY值
 
 方式二：
- *target["anchorX"] = value; //设置对象的anchorX值
- *target["anchorY"] = value; //设置对象的anchorY值
- *target["anchor"] = value; //同时设置对象的anchorX和anchorY值
+ * target["anchorX"] = value; //设置对象的anchorX值
+ * target["anchorY"] = value; //设置对象的anchorY值
+ * target["anchor"] = value; //同时设置对象的anchorX和anchorY值
 
 方式三：
 修改egret.d.ts，在DisplayObject声明中添加anchorX、anchorY和anchor属性，代码的写法和引擎之前版本相同：
-*target.anchorX = value; //设置对象的anchorX值
- *target.anchorY = value; //设置对象的anchorY值
- *target.anchor = value; //同时设置对象的anchorX和anchorY值
+ * target.anchorX = value; //设置对象的anchorX值
+ * target.anchorY = value; //设置对象的anchorY值
+ * target.anchor = value; //同时设置对象的anchorX和anchorY值
