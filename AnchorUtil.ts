@@ -160,6 +160,58 @@ class AnchorUtil{
             enumerable: true,
             configurable: true
         });
+
+        if(egret.gui && egret.gui.UIComponent) {
+            Object.defineProperty(egret.gui.UIComponent.prototype, "width", {
+                get: function () {
+                    return this._UIC_Props_._uiWidth;
+                },
+                set: function (value) {
+                    this.$setWidth(value);
+                    AnchorUtil._propertyChange[this.hashCode] = true;
+                    egret.callLater(()=>{
+                        AnchorUtil.changeAnchor(this);
+                    }, this);
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            Object.defineProperty(egret.gui.UIComponent.prototype, "height", {
+                get: function () {
+                    return this._UIC_Props_._uiHeight;
+                },
+                set: function (value) {
+                    this.$setHeight(value);
+                    AnchorUtil._propertyChange[this.hashCode] = true;
+                    egret.callLater(()=>{
+                        AnchorUtil.changeAnchor(this);
+                    }, this);
+                },
+                enumerable: true,
+                configurable: true
+            });
+
+            egret.gui.UIComponent.prototype.setActualSize = function (w:number, h:number){
+                var change:boolean = false;
+                if (this._UIC_Props_._uiWidth != w) {
+                    this._UIC_Props_._uiWidth = w;
+                    change = true;
+                }
+                if (this._UIC_Props_._uiHeight != h) {
+                    this._UIC_Props_._uiHeight = h;
+                    change = true;
+                }
+                if (change) {
+                    this.invalidateDisplayList();
+                    this.dispatchResizeEvent();
+                    AnchorUtil._propertyChange[this.hashCode] = true;
+                    egret.callLater(()=>{
+                        AnchorUtil.changeAnchor(this);
+                    }, this);
+                }
+            }
+        }
     }
 
     private static changeAnchor(tar:any):void{
